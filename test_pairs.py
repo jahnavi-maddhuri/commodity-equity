@@ -30,26 +30,22 @@ from datetime import datetime
 
 # Define candidate pairs: (commodity_etf, equity_ticker, label)
 PAIRS = [
-    ("NG=F",  "CF",   "Natural Gas → CF Industries"),
-    ("NG=F",  "NTR",  "Natural Gas → Nutrien"),
+    ("HG=F",  "TEL",  "Copper → TE Connectivity"),
+    ("HG=F", "ROK",  "Copper → Rockwell Automation"),
+
+    # # FAILED: 
+    # ("NG=F",  "CF",   "Natural Gas → CF Industries"),
+    # ("NG=F",  "NTR",  "Natural Gas → Nutrien"),
     # ("CL=F",  "AAL",  "Crude Oil → American Airlines"),
     # ("CL=F",  "UAL",  "Crude Oil → United Airlines"),
-    
-    # # PASSED!
-    # ("HG=F",  "TEL",  "Copper → TE Connectivity"),
-    
     # ("HG=F",  "APTV", "Copper → Aptiv"),
     # ("CL=F",  "DAL",  "Crude Oil → Delta Airlines"),
-    # ("HG=F", "ETN",  "Copper → Eaton Corp"),       # Another copper-intensive industrial
-    # ("HG=F", "EMR",  "Copper → Emerson Electric"),  # Similar profile to TEL
-    
-    # # PASSED!
-    # ("HG=F", "ROK",  "Copper → Rockwell Automation"),
-    
-    # ("HG=F", "AME",  "Copper → Ametek"),           # Precision instruments, copper-intensive
-    # ("HG=F", "PH",   "Copper → Parker Hannifin"),   # Industrial motion, high copper usage
-    # ("HG=F", "IR",   "Copper → Ingersoll Rand"),    # Compressors and motors
-    # ("HG=F", "GE",   "Copper → GE Vernova"),        # Power 
+    # ("HG=F", "ETN",  "Copper → Eaton Corp"),
+    # ("HG=F", "EMR",  "Copper → Emerson Electric"), 
+    # ("HG=F", "AME",  "Copper → Ametek"),           
+    # ("HG=F", "PH",   "Copper → Parker Hannifin"),   
+    # ("HG=F", "IR",   "Copper → Ingersoll Rand"),   
+    # ("HG=F", "GE",   "Copper → GE Vernova"),       
     # ("LBS=F", "LEN",  "Lumber → Lennar"),
     # ("LBS=F", "DHI",  "Lumber → D.R. Horton"),
     # ("LBS=F", "PHM",  "Lumber → PulteGroup"),
