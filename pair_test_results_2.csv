@@ -1,0 +1,11 @@
+Pair,Data Points,Coint p-value,Coint Pass,Granger p-value,Granger Lag (days),Granger Pass,Beta (β),R²,Both Tests Pass,Score
+Copper → Rockwell Automation,2517,0.02,✓,0.0161,8,✓,0.467,0.132,✓✓ TRADE,3/4
+Copper → TE Connectivity,2517,0.0011,✓,0.0407,5,✓,0.4343,0.1315,✓✓ TRADE,3/4
+Crude Oil → American Airlines,2516,0.3628,✗,0.0,10,✓,0.0351,0.007,✗  SKIP,1/4
+Crude Oil → Delta Airlines,2516,0.2083,✗,0.0,10,✓,0.0337,0.0099,✗  SKIP,1/4
+Crude Oil → United Airlines,2516,0.6171,✗,0.0001,10,✓,0.0394,0.0096,✗  SKIP,1/4
+Natural Gas → CF Industries,2517,0.7717,✗,0.0079,1,✓,0.0872,0.0157,✗  SKIP,1/4
+Copper → Eaton Corp,2517,0.9503,✗,0.0103,5,✓,0.4083,0.1098,✗  SKIP,2/4
+Copper → Emerson Electric,2517,0.229,✗,0.2888,7,✗,0.438,0.1427,✗  SKIP,1/4
+Natural Gas → Nutrien,1762,0.1199,✗,0.3007,3,✗,0.0699,0.0168,✗  SKIP,0/4
+Copper → Aptiv,2517,0.6608,✗,0.6577,5,✗,0.53,0.0943,✗  SKIP,0/4

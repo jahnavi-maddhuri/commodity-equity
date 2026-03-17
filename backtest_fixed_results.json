@@ -1,0 +1,198 @@
+{
+  "Copper \u2192 TE Connectivity": {
+    "best_params": {
+      "signal_window": 15,
+      "k_sigma": 1.2
+    },
+    "bt1_train": {
+      "total_return_pct": -52.29,
+      "annualized_return_compounding": -10.05,
+      "annualized_return_simple": -7.48,
+      "sharpe_ratio": -0.065,
+      "calmar_ratio": -0.112,
+      "max_drawdown_pct": -89.84,
+      "trading_frequency_per_year": 11.4,
+      "avg_holding_period_days": 11.2,
+      "win_rate_pct": 32.5,
+      "profit_factor": 0.73,
+      "num_trades": 80,
+      "avg_win_pct": 4.89,
+      "avg_loss_pct": -3.226
+    },
+    "bt1_test": {
+      "total_return_pct": -9.41,
+      "annualized_return_compounding": -3.24,
+      "annualized_return_simple": -3.14,
+      "sharpe_ratio": -0.353,
+      "calmar_ratio": -0.118,
+      "max_drawdown_pct": -27.42,
+      "trading_frequency_per_year": 9.7,
+      "avg_holding_period_days": 12.2,
+      "win_rate_pct": 34.48,
+      "profit_factor": 0.823,
+      "num_trades": 29,
+      "avg_win_pct": 4.779,
+      "avg_loss_pct": -3.056
+    },
+    "bt2_recent": {
+      "total_return_pct": 2.42,
+      "annualized_return_compounding": 4.81,
+      "annualized_return_simple": 4.76,
+      "sharpe_ratio": 0.124,
+      "calmar_ratio": 1.12,
+      "max_drawdown_pct": -4.3,
+      "trading_frequency_per_year": 2.0,
+      "avg_holding_period_days": 15.0,
+      "win_rate_pct": 0.0,
+      "profit_factor": 0.0,
+      "num_trades": 1,
+      "avg_win_pct": 0,
+      "avg_loss_pct": -0.623
+    },
+    "scenarios": {
+      "US-China Trade War": {
+        "total_return_pct": -22.36,
+        "annualized_return_compounding": -11.91,
+        "annualized_return_simple": -11.2,
+        "sharpe_ratio": -1.052,
+        "calmar_ratio": -0.45,
+        "max_drawdown_pct": -26.49,
+        "trading_frequency_per_year": 10.0,
+        "avg_holding_period_days": 9.2,
+        "win_rate_pct": 35.0,
+        "profit_factor": 0.523,
+        "num_trades": 20,
+        "avg_win_pct": 3.38,
+        "avg_loss_pct": -3.477
+      },
+      "COVID Crash & Recovery": {
+        "total_return_pct": 3.35,
+        "annualized_return_compounding": 2.22,
+        "annualized_return_simple": 2.24,
+        "sharpe_ratio": -0.003,
+        "calmar_ratio": 0.148,
+        "max_drawdown_pct": -15.04,
+        "trading_frequency_per_year": 8.7,
+        "avg_holding_period_days": 10.9,
+        "win_rate_pct": 38.46,
+        "profit_factor": 1.264,
+        "num_trades": 13,
+        "avg_win_pct": 4.62,
+        "avg_loss_pct": -2.285
+      },
+      "2022 Rate Hike Cycle": {
+        "total_return_pct": 8.51,
+        "annualized_return_compounding": 8.54,
+        "annualized_return_simple": 8.54,
+        "sharpe_ratio": 0.309,
+        "calmar_ratio": 0.573,
+        "max_drawdown_pct": -14.91,
+        "trading_frequency_per_year": 7.0,
+        "avg_holding_period_days": 14.3,
+        "win_rate_pct": 57.14,
+        "profit_factor": 1.993,
+        "num_trades": 7,
+        "avg_win_pct": 4.189,
+        "avg_loss_pct": -2.803
+      }
+    }
+  },
+  "Copper \u2192 Rockwell Automation": {
+    "best_params": {
+      "signal_window": 15,
+      "k_sigma": 1.5
+    },
+    "bt1_train": {
+      "total_return_pct": 45.43,
+      "annualized_return_compounding": 5.51,
+      "annualized_return_simple": 6.5,
+      "sharpe_ratio": 0.166,
+      "calmar_ratio": 0.224,
+      "max_drawdown_pct": -24.55,
+      "trading_frequency_per_year": 7.6,
+      "avg_holding_period_days": 12.8,
+      "win_rate_pct": 49.06,
+      "profit_factor": 1.717,
+      "num_trades": 53,
+      "avg_win_pct": 4.895,
+      "avg_loss_pct": -2.746
+    },
+    "bt1_test": {
+      "total_return_pct": 7.94,
+      "annualized_return_compounding": 2.58,
+      "annualized_return_simple": 2.65,
+      "sharpe_ratio": -0.005,
+      "calmar_ratio": 0.119,
+      "max_drawdown_pct": -21.6,
+      "trading_frequency_per_year": 6.7,
+      "avg_holding_period_days": 13.6,
+      "win_rate_pct": 45.0,
+      "profit_factor": 1.281,
+      "num_trades": 20,
+      "avg_win_pct": 8.149,
+      "avg_loss_pct": -5.203
+    },
+    "bt2_recent": {
+      "total_return_pct": -5.43,
+      "annualized_return_compounding": -10.41,
+      "annualized_return_simple": -10.69,
+      "sharpe_ratio": -1.026,
+      "calmar_ratio": -1.282,
+      "max_drawdown_pct": -8.12,
+      "trading_frequency_per_year": 3.9,
+      "avg_holding_period_days": 10.5,
+      "win_rate_pct": 50.0,
+      "profit_factor": 1.041,
+      "num_trades": 2,
+      "avg_win_pct": 6.092,
+      "avg_loss_pct": -5.852
+    },
+    "scenarios": {
+      "US-China Trade War": {
+        "total_return_pct": 17.14,
+        "annualized_return_compounding": 8.25,
+        "annualized_return_simple": 8.59,
+        "sharpe_ratio": 0.362,
+        "calmar_ratio": 0.601,
+        "max_drawdown_pct": -13.73,
+        "trading_frequency_per_year": 6.5,
+        "avg_holding_period_days": 12.9,
+        "win_rate_pct": 53.85,
+        "profit_factor": 2.21,
+        "num_trades": 13,
+        "avg_win_pct": 5.047,
+        "avg_loss_pct": -2.665
+      },
+      "COVID Crash & Recovery": {
+        "total_return_pct": -7.83,
+        "annualized_return_compounding": -5.31,
+        "annualized_return_simple": -5.24,
+        "sharpe_ratio": -0.684,
+        "calmar_ratio": -0.322,
+        "max_drawdown_pct": -16.47,
+        "trading_frequency_per_year": 4.7,
+        "avg_holding_period_days": 12.4,
+        "win_rate_pct": 28.57,
+        "profit_factor": 0.159,
+        "num_trades": 7,
+        "avg_win_pct": 1.107,
+        "avg_loss_pct": -2.776
+      },
+      "2022 Rate Hike Cycle": {
+        "total_return_pct": 16.19,
+        "annualized_return_compounding": 16.26,
+        "annualized_return_simple": 16.26,
+        "sharpe_ratio": 0.638,
+        "calmar_ratio": 0.89,
+        "max_drawdown_pct": -18.28,
+        "trading_frequency_per_year": 6.0,
+        "avg_holding_period_days": 16.0,
+        "win_rate_pct": 50.0,
+        "profit_factor": 2.116,
+        "num_trades": 6,
+        "avg_win_pct": 11.151,
+        "avg_loss_pct": -5.269
+      }
+    }
+  }
+}

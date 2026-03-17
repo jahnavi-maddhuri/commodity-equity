@@ -1,0 +1,8 @@
+Pair,Data Points,Coint p-value,Coint Pass,Granger p-value,Granger Lag (days),Granger Pass,Beta (β),R²,Both Tests Pass,Score
+Crude Oil → American Airlines,2516,0.3972,✗,0.0001,10,✓,0.1118,0.0075,✗  SKIP,1/4
+Crude Oil → United Airlines,2516,0.4467,✗,0.0012,3,✓,0.1674,0.018,✗  SKIP,1/4
+Natural Gas → CF Industries,2516,0.7261,✗,0.0119,1,✓,0.0502,0.0041,✗  SKIP,1/4
+Copper → Aptiv,2516,0.3959,✗,0.1058,1,✗,0.3176,0.0527,✗  SKIP,0/4
+Copper → TE Connectivity,2516,0.0011,✓,0.1873,2,✗,0.2297,0.0618,✗  SKIP,1/4
+Steel → General Motors,2516,0.2806,✗,0.2944,5,✗,0.5756,0.2804,✗  SKIP,1/4
+Steel → Ford,2516,0.0615,✗,0.4567,7,✗,0.5547,0.2552,✗  SKIP,1/4

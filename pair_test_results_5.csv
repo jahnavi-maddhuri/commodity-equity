@@ -1,0 +1,3 @@
+Pair,Data Points,Coint p-value,Coint Pass,Granger p-value,Granger Lag (days),Granger Pass,Beta (β),R²,Both Tests Pass,Score
+Natural Gas → CF Industries,794,0.6109,✗,0.1597,4,✗,0.0514,0.0043,✗  SKIP,0/4
+Natural Gas → Nutrien,543,0.2976,✗,0.161,2,✗,0.0845,0.0183,✗  SKIP,0/4
