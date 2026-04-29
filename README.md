@@ -55,11 +55,23 @@ commodity-equity/
 ├── test_pairs.py                          # Part 1: Pair discovery and statistical validation
 ├── backtest.py                            # Part 2: Parameter optimization and backtesting
 │
+├── test_tenors.py                         # Feedback response 1: deferred-futures and
+│                                          #   long-horizon lead-lag tests
+├── test_pairs_w_int.py                    # Feedback response 2: producer-equity intermediates
+│
 ├── pair_test_results_1.csv                # Pair validation results — round 1 (ETF proxies)
 ├── pair_test_results_2.csv                # Pair validation results — round 2 (continuous futures)
 ├── pair_test_results_3.csv                # Pair validation results — round 3 (weekly beta)
 ├── pair_test_results_4.csv                # Pair validation results — round 4 (copper industrials)
 ├── pair_test_results_5.csv                # Pair validation results — round 5 (lumber + additional)
+├── pair_test_results_intermediate.csv     # Producer-intermediate pair validation results
+│
+├── stage1_raw_data.pkl                    # Cached yfinance pulls for test_tenors.py
+├── stage1_contracts.csv                   # Per-contract data availability diagnostics
+├── stage1_pairings.csv                    # Deferred × equity overlap diagnostics
+├── stage1_spreads.csv                     # Calendar-spread ADF diagnostics
+├── tenor_comparison_results.csv           # Main test grid: cointegration + Granger across tenors
+├── tenor_lagged_regression.csv            # Long-horizon lead-lag profile (lags 5–252 days)
 │
 ├── backtest_fixed_results.json            # Full backtest results for validated pairs
 ├── grid_fixed_Copper_to_ROK.csv           # Grid search results — Copper → ROK
@@ -67,6 +79,7 @@ commodity-equity/
 │
 ├── chart_*.png                            # Pair diagnostic charts (normalized prices,
 │                                          #   rolling beta, spread, Z-score)
+├── chart_intermediate_*.png               # Diagnostic charts for producer-intermediate pairs
 ├── equity_fixed_*.png                     # Equity curves — train/test split with Z-score
 ├── grid_fixed_*.png                       # Sharpe ratio heatmaps from grid search
 └── capital_allocation.png                 # Capital allocation chart across pairs
@@ -113,7 +126,7 @@ Runs the full backtesting pipeline on validated pairs. Includes grid search over
 **What it does:**
 - Downloads data and computes rolling beta using weekly returns
 - Splits data 70% training / 30% out-of-sample
-- **Grid search** over all combinations of `signal_window` (5–90 days) and `k_sigma` (0.6–2.5σ), where k_sigma scales inversely with window length per professor guidance
+- **Grid search** over all combinations of `signal_window` (5–90 days) and `k_sigma` (0.6–2.5σ), where k_sigma scales inversely with window length per review guidance
 - Selects best parameters by Sharpe ratio on training set
 - Runs out-of-sample backtest with best parameters
 - Runs **Back Test 2** (nearest 6 months) with best parameters
@@ -123,7 +136,7 @@ Runs the full backtesting pipeline on validated pairs. Includes grid search over
 - Uses fixed position sizing (95% of initial capital per trade) — no compounding between trades
 
 **Key design decisions:**
-- No stop-loss in Phase 1 (per professor guidance — add after parameter optimization)
+- No stop-loss in Phase 1 (per review guidance — add after parameter optimization)
 - Weekly returns used for beta estimation; daily prices used for signal computation
 - Position size is fixed fraction of *initial* capital, not current portfolio value
 
@@ -215,6 +228,69 @@ A pair must satisfy all of the following before being traded:
 | Lumber → Homebuilders | 3 | 0 |
 
 Full results in `pair_test_results_*.csv`.
+
+---
+
+## Phase II Experiments
+
+Two follow-up experiments extend the Phase I framework along directions surfaced during review of the original results. Each addresses a distinct methodological concern about the original signal construction:
+
+1. **Front-month copper futures and 5–90 day signal windows may be inconsistent with how industrial firms actually price commodity exposure.** Firms hedge 3–12 months forward, so the relevant signal could live in deferred futures and propagate to equities over months, not days.
+2. **An intermediate producer-equity may carry a stronger relationship to the consumer-equity than the raw commodity does**, because both legs share equity-noise structure (e.g., lumber → WFG → LEN).
+
+Two scripts address each path. Neither modifies the original `test_pairs.py` or `backtest.py`; both reuse helper functions from `test_pairs.py`.
+
+### `test_tenors.py` — Deferred Futures and Long-Horizon Lead-Lag
+
+Tests whether deferred copper futures (`HGN26`, `HGU26`, `HGZ25`, `HGZ26`, `HGZ27` — pulled via `.CMX` exchange suffix, since `=F` returns no data for individual contracts) or calendar spreads (deferred − front-month) have a stronger relationship with ROK and TEL than the front-month does.
+
+**Stage 1 — Data diagnostics.** Pulls full available history per contract, prints date ranges and gap warnings, computes deferred×equity overlap, and runs ADF on each calendar spread. Outputs `stage1_*.csv` plus a pickled raw-data cache.
+
+**Stage 2 — Test grid.**
+- Each `(equity × deferred contract × signal_type × window)` combination, where `signal_type ∈ {level, spread}` and `window ∈ {30, 60, 90}` days
+- Engle-Granger cointegration on price levels
+- Granger causality with `maxlag = 130` (~6 months trading days), p-values reported at lags 5, 20, 60, 90, 130
+- OLS β and R² on windowed pct_change
+- Front-month baselines included at both the original 15-day / maxlag=10 setting (2017–2020) and like-for-like 30/60/90-day / maxlag=130 settings on each deferred contract's overlap window
+- Benjamini-Hochberg FDR correction reported as an informational column; pass flags use raw p-values
+- Tenor labeled by mean days-to-expiry computed from each contract's expiry date
+
+**Long-horizon lead-lag block.** Granger at maxlag=252 is unreliable on the available 900–1,300-row windows; instead, a direct lagged regression of `equity_returns(t) ~ commodity_returns(t-k)` is run for `k ∈ {5, 20, 60, 90, 130, 180, 252}` to address the 12-month horizon raised in the review.
+
+**Outputs:**
+- `tenor_comparison_results.csv` — 92 rows (5 deferred contracts × 2 equities × 2 signal types × 3 windows + matched front-month baselines + 2 original baselines)
+- `tenor_lagged_regression.csv` — 154 rows (lead-lag profile per pair × lag)
+
+**Caveats documented in the script:**
+- Tenor drifts within a single contract series (HGZ26 was ~24 months out a year ago, ~8 months out today); mean-DTE labels smooth over this.
+- Deferred contracts share roughly 2022–2025 as a common window, so cross-regime conclusions cannot be drawn from this stage alone.
+- HGZ26 calendar spread is itself stationary at α=0.05 (ADF p=0.043), making `coint(equity, spread)` partially ill-posed for that row; flagged via the `spread_adf_p` column.
+
+### `test_pairs_w_int.py` — Producer-Equity Intermediates
+
+Replaces the commodity-futures leg with a pure-play producer equity and re-runs the original validation pipeline on the same 2017-01-01 → 2020-03-01 window for direct comparison to `pair_test_results_*.csv`. Methodology is identical to `test_pairs.py` (Granger maxlag=10, weekly-resampled β, same ADF + cointegration + Granger tests, same scorecard format) — the only change is the producer ticker.
+
+**17 pairs tested:**
+| Producer | Sector | Consumers |
+|---|---|---|
+| FCX | Copper | ROK, TEL, AME, PH, ETN, IR, EMR |
+| EOG | Oil | AAL, UAL, DAL |
+| EQT | Gas | CF, NTR |
+| NUE | Steel | F, GM |
+| WFG | Lumber | LEN, DHI, PHM |
+
+**Internal vs. external naming:** the reused helper functions in `test_pairs.py` operate on a `["commodity", "equity"]` DataFrame schema. That convention is preserved unchanged inside the helpers; producer/consumer labels are used only in console output, CSV columns, and chart filenames. The reused `plot_pair_analysis` function still labels its panels "Commodity"/"Equity" — this is intentional and unmodified.
+
+**Data caveats** are surfaced in a `data_caveats` column in the output CSV for the affected pairs:
+- `WFG` pre-2021 series is reconstructed (NYSE listing began Feb 2021; pre-2021 prices are likely back-filled from the TSX `WFT.TO` listing). Affects WFG-LEN, WFG-DHI, WFG-PHM.
+- `NTR` exists only from 2018-01-02 (post-PotashCorp/Agrium merger) — 543 rows vs. 794 for clean tickers. Affects EQT-NTR.
+- `IR` history starts 2017-05-12 with a structural break Feb 29 2020 (Trane spin-off and Gardner Denver merger). Affects FCX-IR.
+
+**Outputs:**
+- `pair_test_results_intermediate.csv` — 17 rows, sorted by pass-status then Granger p-value
+- `chart_intermediate_{producer}_{consumer}.png` — one diagnostic chart per pair
+
+**Headline result:** 0/17 passed cointegration, 5/17 passed Granger (FCX-TEL, FCX-EMR, WFG-LEN, WFG-DHI, WFG-PHM), 0/17 passed both. Three of the five Granger-only passes are on WFG pairs whose pre-2021 history is reconstructed.
 
 ---
 
